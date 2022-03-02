@@ -23,6 +23,7 @@
 , libopus
 , libsciter
 , llvmPackages
+, wrapGAppsHook
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -67,7 +68,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${libyuv.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
   '';
 
-  nativeBuildInputs = [ pkg-config cmake makeWrapper copyDesktopItems yasm nasm clang ];
+  nativeBuildInputs = [ pkg-config cmake makeWrapper copyDesktopItems yasm nasm clang wrapGAppsHook ];
   buildInputs = [ alsa-lib pulseaudio libXfixes libxcb xdotool gtk3 libvpx libopus libXtst libyuv ];
 
   # Checks require an active X display.
