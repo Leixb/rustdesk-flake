@@ -50,15 +50,7 @@ rustPlatform.buildRustPackage rec {
   # Manually simulate a vcpkg installation so that it can link the libaries
   # properly.
   postUnpack = let
-    target_arch = if stdenv.isx86_64 then "x64"
-      else if stdenv.isx86_32 then "x32"
-      else throw "Unsupported architecture";
-
-    target_os = if stdenv.isLinux then "linux"
-      else if stdenv.isDarwin then "osx"
-      else throw "Unsupported system";
-
-    vcpkg_target = "${target_arch}-${target_os}";
+    vcpkg_target = "x64-linux";
   in ''
     export VCPKG_ROOT="$TMP/vcpkg";
 
@@ -106,7 +98,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://rustdesk.com";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ leixb ];
-    platforms = platforms.unix;
+    platforms = [ "x86_64-linux" ];
     mainProgram = "rustdesk";
   };
 }
